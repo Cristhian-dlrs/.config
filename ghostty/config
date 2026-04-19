@@ -1,0 +1,11 @@
+theme = catppuccin-mocha.conf
+font-family = "JetBrains Mono"
+font-size = 20
+font-feature = liga
+font-feature = calt
+mouse-hide-while-typing = true
+window-decoration = true
+macos-option-as-alt = true
+background-opacity = 0.9
+background-blur-radius = 20
+window-decoration = auto
