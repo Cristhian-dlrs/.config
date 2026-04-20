@@ -1,37 +1,39 @@
 return {
-    "seblyng/roslyn.nvim",
-    enabled = true,
-    ft = "cs",
-    config = function()
-        vim.lsp.config("roslyn", {
-            on_attach = function()
-                print("This will run when the server attaches!")
-            end,
-            settings = {},
-        })
-        local roslyn = require("roslyn")
-        roslyn.setup()
+	"seblyng/roslyn.nvim",
+	ft = "cs",
+	opts = {
+		filewatching = "auto", -- "auto" | "roslyn" | "off"
+		broad_search = false, -- search parent dirs for .sln files
+		lock_target = false, -- lock to a specific solution
 
-        vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-            pattern = "*",
-            callback = function()
-                local clients = vim.lsp.get_clients({ name = "roslyn" })
-                if not clients or #clients == 0 then
-                    return
-                end
+		-- Optional: auto-select a solution instead of prompting
+		-- choose_target = function(targets)
+		--   return vim.iter(targets):find(function(t)
+		--     return t:match("MyProject%.sln")
+		--   end)
+		-- end,
 
-                local client = clients[1]
-                local buffers = vim.lsp.get_buffers_by_client_id(clients[1].id)
-                for _, buf in ipairs(buffers) do
-                    client.request(
-                        "textDocument/diagnostic",
-                        { textDocument = vim.lsp.util.make_text_document_params(buf) },
-                        nil,
-                        buf
-                    )
-                end
-                print("Client refresh ")
-            end,
-        })
-    end,
+		config = {
+			-- These are passed directly to the Roslyn LSP server
+			settings = {
+				["csharp|inlay_hints"] = {
+					csharp_enable_inlay_hints_for_implicit_object_creation = true,
+					csharp_enable_inlay_hints_for_implicit_variable_types = true,
+					csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+					csharp_enable_inlay_hints_for_types = true,
+					dotnet_enable_inlay_hints_for_indexer_parameters = true,
+					dotnet_enable_inlay_hints_for_literal_parameters = true,
+					dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+					dotnet_enable_inlay_hints_for_other_parameters = true,
+					dotnet_enable_inlay_hints_for_parameters = true,
+					dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+					dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+					dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+				},
+				["csharp|code_lens"] = {
+					dotnet_enable_references_code_lens = true,
+				},
+			},
+		},
+	},
 }
