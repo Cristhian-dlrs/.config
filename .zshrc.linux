@@ -36,6 +36,7 @@ alias cdi="zi"
 alias sm="btop"
 alias vim="nvim"
 alias ..="cd .."
+alias lg="lazygit"
 
 # --- SYNTAX HIGHLIGHTING (MUST BE LAST) ---
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

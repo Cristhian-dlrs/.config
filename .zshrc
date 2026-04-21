@@ -34,6 +34,7 @@ alias cdi="zi"
 alias sm="btop"
 alias vim="nvim"
 alias ..="cd .."
+alias lg="lazygit"
 
 # --- SYNTAX HIGHLIGHTING ---
 source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
